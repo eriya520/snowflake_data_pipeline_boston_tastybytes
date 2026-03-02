@@ -1,6 +1,6 @@
 
 -- use database
-use database FROSTBYTE_WEATHERSOURCE;
+use database WEATHER_SOURCE_LLC_FROSTBYTE;
 use role accountadmin;
 -- Create view that adds weather data for cities where Tasty Bytes operates
 CREATE OR REPLACE VIEW {{env}}_tasty_bytes.harmonized.daily_weather_v
@@ -11,8 +11,8 @@ SELECT
     TO_VARCHAR(hd.date_valid_std, 'YYYY-MM') AS yyyy_mm,
     pc.city_name AS city,
     c.country AS country_desc
-FROM FROSTBYTE_WEATHERSOURCE.onpoint_id.history_day hd
-JOIN FROSTBYTE_WEATHERSOURCE.onpoint_id.postal_codes pc
+FROM WEATHER_SOURCE_LLC_FROSTBYTE.onpoint_id.history_day hd
+JOIN WEATHER_SOURCE_LLC_FROSTBYTE.onpoint_id.postal_codes pc
     ON pc.postal_code = hd.postal_code
     AND pc.country = hd.country
 JOIN {{env}}_tasty_bytes.raw_pos.country c
