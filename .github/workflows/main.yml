@@ -19,9 +19,9 @@ jobs:
 
     env:
       # Read connection secret
-      SNOWFLAKE_CONNECTIONS_ADVANCED_DATA_ENGINEERING_SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
-      SNOWFLAKE_CONNECTIONS_ADVANCED_DATA_ENGINEERING_SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
-      SNOWFLAKE_CONNECTIONS_ADVANCED_DATA_ENGINEERING_SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+      SNOWFLAKE_CONNECTIONS_SNOWFLAKE_DATA_PIPELINE_BOSTON_TASTYBYTES_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+      SNOWFLAKE_CONNECTIONS_SNOWFLAKE_DATA_PIPELINE_BOSTON_TASTYBYTES_USER: ${{ secrets.SNOWFLAKE_USER }}
+      SNOWFLAKE_CONNECTIONS_SNOWFLAKE_DATA_PIPELINE_BOSTON_TASTYBYTES_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
 
     steps:
       # Checkout step is necessary to access repository files
@@ -63,5 +63,5 @@ jobs:
           echo "Using branch: ${GITHUB_REF_NAME}"
           snow git execute @snowflake_data_pipeline_boston_tastybytes/branches/${GITHUB_REF_NAME}/boston_weather/pipeline/data/ \
           -D "env='${{ env.DEPLOY_ENV }}'" \
-          --database=COURSE_REPO \
+          --database=TASTY_REPO \
           --schema=PUBLIC
