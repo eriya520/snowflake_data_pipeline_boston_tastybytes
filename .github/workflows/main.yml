@@ -54,7 +54,7 @@ jobs:
 
       # Fetch latest changes from the repository to Snowflake
       - name: Fetch latest changes to Snowflake
-        run: snow git fetch course_repo.public.snowflake_data_pipeline_boston_tastybytes
+        run: snow git fetch tasty_repo.public.snowflake_data_pipeline_boston_tastybytes
 
       # Deploy templates to the data environment -
       - name: Deploy templates to data environment
