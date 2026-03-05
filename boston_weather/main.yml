@@ -19,9 +19,9 @@ jobs:
 
     env:
       # Read connection secret
-      SNOWFLAKE_CONNECTIONS_ADVANCED_DATA_ENGINEERING_SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
-      SNOWFLAKE_CONNECTIONS_ADVANCED_DATA_ENGINEERING_SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
-      SNOWFLAKE_CONNECTIONS_ADVANCED_DATA_ENGINEERING_SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+      SNOWFLAKE_CONNECTIONS_SNOWFLAKE_DATA_PIPELINE_BOSTON_TASTYBYTES_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+      SNOWFLAKE_CONNECTIONS_SNOWFLAKE_DATA_PIPELINE_BOSTON_TASTYBYTES_USER: ${{ secrets.SNOWFLAKE_USER }}
+      SNOWFLAKE_CONNECTIONS_SNOWFLAKE_DATA_PIPELINE_BOSTON_TASTYBYTES_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
 
     steps:
       # Checkout step is necessary to access repository files
@@ -54,14 +54,14 @@ jobs:
 
       # Fetch latest changes from the repository to Snowflake
       - name: Fetch latest changes to Snowflake
-        run: snow git fetch course_repo.public.advanced_data_engineering_snowflake
+        run: snow git fetch tasty_repo.public.snowflake_data_pipeline_boston_tastybytes
 
       # Deploy templates to the data environment -
       - name: Deploy templates to data environment
         run: |
           # Export TARGET_BRANCH for use in this step
           echo "Using branch: ${GITHUB_REF_NAME}"
-          snow git execute @advanced_data_engineering_snowflake/branches/FIX-ME/module-1/hamburg_weather/pipeline/data/ \
-          -D "env='${{  }}'" \
-          --database=COURSE_REPO \
+          snow git execute @snowflake_data_pipeline_boston_tastybytes/branches/${GITHUB_REF_NAME}/boston_weather/pipeline/data/ \
+          -D "env='${{ env.DEPLOY_ENV }}'" \
+          --database=TASTY_REPO \
           --schema=PUBLIC
