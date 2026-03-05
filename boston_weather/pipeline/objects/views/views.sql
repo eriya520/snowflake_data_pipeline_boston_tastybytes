@@ -65,9 +65,9 @@ LEFT JOIN {{env}}_tasty_bytes.harmonized.orders_v odv
     AND fd.country_desc = odv.country
 GROUP BY fd.date_valid_std, fd.city_name, fd.country_desc;
 
--- Create a view that tracks windspeed for Hamburg, Germany
-CREATE OR REPLACE VIEW {{env}}_tasty_bytes.harmonized.windspeed_hamburg
-    AS
+-- Create a view that tracks windspeed for Boston, US
+CREATE OR REPLACE VIEW {{env}}_tasty_bytes.harmonized.windspeed_boston
+AS
 SELECT
     dw.country_desc,
     dw.city_name,
@@ -79,3 +79,24 @@ WHERE 1=1
     AND dw.city_name = 'Boston'
 GROUP BY dw.country_desc, dw.city_name, dw.date_valid_std
 ORDER BY dw.date_valid_std DESC;
+
+
+CREATE OR REPLACE VIEW {{env}}_tasty_bytes.analytics.daily_city_metrics_truck_count_v
+as
+with truck_count as (
+    select 
+        date,
+       primary_city,
+       count(distinct truck_id) as number_of_trucks
+    from {{env}}_tasty_bytes.analytics.orders_v
+    where  
+        primary_city = 'Boston'
+    group by primary_city, date
+    order by date)
+select d.*,
+       tc.number_of_trucks
+from {{env}}_tasty_bytes.analytics.daily_city_metrics_v d
+join truck_count tc
+on tc.primary_city = d.city_name
+and d.date = tc.date
+order by d.date;
