@@ -1,3 +1,4 @@
+-- snowflake:ignore-jinja
 use role accountadmin;
 use database staging_tasty_bytes;
 use schema raw_pos;
