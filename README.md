@@ -21,4 +21,4 @@ Platforms: AWS, Snowflake, Snowpipe, Snow CLI, GitHub
 
 ### Goal 2: Streaming table and email notification
 * create a streaming table and test it by manually insert new order data; 
-* send email nofitification for sales that is below a certain criteria;
+* send email nofitification for any new sales that has missing sales information;
