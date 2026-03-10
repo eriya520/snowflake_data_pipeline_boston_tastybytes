@@ -1,4 +1,4 @@
---snowflake:ignore-jinja
+-- snowflake:ignore-jinja
 
 USE ROLE accountadmin;
 USE DATABASE staging_tasty_bytes;
