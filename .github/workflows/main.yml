@@ -1,3 +1,6 @@
+with:
+  templating: false
+
 name: Deploy Templatized Data Environment
 
 on:
